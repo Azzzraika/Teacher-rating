@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кіру - College Teacher Rating</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>TeacherRating</span>
+                </div>
+                <h2>Аккаунтқа кіру</h2>
+                <p>Платформаға кіріп, оқытушыларды бағалаңыз</p>
+            </div>
+
+            <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="login-email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Құпия сөз</label>
+                    <div class="password-input">
+                        <input type="password" id="login-password" placeholder="Құпия сөзді енгізіңіз" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-sign-in-alt"></i> Кіру
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>немесе</span>
+            </div>
+
+            <button onclick="loginWithGoogle()" class="btn btn-google btn-full">
+                <i class="fab fa-google"></i> Google арқылы кіру
+            </button>
+
+            <div class="auth-footer">
+                <p>Аккаунтыңыз жоқ па? <a href="register.html">Тіркелу</a></p>
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Басты бетке оралу</a>
+            </div>
+        </div>
+
+        <div class="auth-image">
+            <div class="auth-image-content">
+                <h3>Оқытушыларды бағалау</h3>
+                <p>Сіздің пікіріңіз - біздің болашақ!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

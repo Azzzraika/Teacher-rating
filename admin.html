@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панелі - College Teacher Rating</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>TeacherRating</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Басты бет</a>
+            <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+            <a href="analytics.html"><i class="fas fa-chart-bar"></i> Аналитика</a>
+            <a href="admin.html" class="active" id="admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+        </div>
+        <div class="nav-auth">
+            <div id="user-info" style="display:none;">
+                <img id="user-avatar" src="" alt="avatar">
+                <span id="user-name"></span>
+                <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div id="auth-buttons">
+                <a href="login.html" class="btn btn-outline">Кіру</a>
+                <a href="register.html" class="btn btn-primary">Тіркелу</a>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html"><i class="fas fa-home"></i> Басты бет</a>
+        <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+        <a href="analytics.html"><i class="fas fa-chart-bar"></i> Аналитика</a>
+        <a href="admin.html" class="active" id="mobile-admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+    </div>
+
+    <main class="main-content">
+        <section class="admin-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog"></i> Администратор панелі</h2>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('teachers')">
+                    <i class="fas fa-chalkboard-teacher"></i> Оқытушылар
+                </button>
+                <button class="tab-btn" onclick="switchTab('reviews')">
+                    <i class="fas fa-comments"></i> Пікірлер
+                </button>
+                <button class="tab-btn" onclick="switchTab('users')">
+                    <i class="fas fa-users"></i> Пайдаланушылар
+                </button>
+            </div>
+
+            <div class="tab-content active" id="tab-teachers">
+                <div class="admin-actions">
+                    <button onclick="openAddTeacherModal()" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Оқытушы қосу
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Фото</th>
+                                <th>Аты</th>
+                                <th>Пән</th>
+                                <th>Рейтинг</th>
+                                <th>Пікірлер</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-teachers-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-reviews">
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Оқытушы</th>
+                                <th>Пайдаланушы</th>
+                                <th>Баға</th>
+                                <th>Пікір</th>
+                                <th>Күні</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-reviews-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-users">
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Фото</th>
+                                <th>Аты</th>
+                                <th>Email</th>
+                                <th>Рөлі</th>
+                                <th>Тіркелген</th>
+                                <th>Әрекеттер</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="teacher-edit-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeTeacherEditModal()"><i class="fas fa-times"></i></button>
+            <h3 id="teacher-modal-title">Оқытушы қосу</h3>
+            <form id="teacher-form" onsubmit="saveTeacher(event)">
+                <input type="hidden" id="edit-teacher-id">
+                <div class="form-group">
+                    <label>Аты-жөні</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Пән</label>
+                    <select id="edit-subject" required>
+                        <option value="Математика">Математика</option>
+                        <option value="Физика">Физика</option>
+                        <option value="Информатика">Информатика</option>
+                        <option value="Ағылшын тілі">Ағылшын тілі</option>
+                        <option value="Қазақ тілі">Қазақ тілі</option>
+                        <option value="Тарих">Тарих</option>
+                        <option value="Химия">Химия</option>
+                        <option value="Биология">Биология</option>
+                        <option value="Экономика">Экономика</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Фото URL</label>
+                    <input type="url" id="edit-photo" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Туралы</label>
+                    <textarea id="edit-bio" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Сақтау</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 College Teacher Rating System. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

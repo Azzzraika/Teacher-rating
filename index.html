@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Teacher Rating - Басты бет</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>TeacherRating</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Басты бет</a>
+            <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+            <a href="analytics.html"><i class="fas fa-chart-bar"></i> Аналитика</a>
+            <a href="admin.html" id="admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+        </div>
+        <div class="nav-auth">
+            <div id="user-info" style="display:none;">
+                <img id="user-avatar" src="" alt="avatar">
+                <span id="user-name"></span>
+                <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div id="auth-buttons">
+                <a href="login.html" class="btn btn-outline">Кіру</a>
+                <a href="register.html" class="btn btn-primary">Тіркелу</a>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Басты бет</a>
+        <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+        <a href="analytics.html"><i class="fas fa-chart-bar"></i> Аналитика</a>
+        <a href="admin.html" id="mobile-admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+    </div>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Оқытушыларды Бағалау</h1>
+                <p>Студенттер оқытушыларға баға беріп, пікір қалдыратын платформа</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-teachers">0</span>
+                        <span class="stat-label">Оқытушы</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-reviews">0</span>
+                        <span class="stat-label">Пікір</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-students">0</span>
+                        <span class="stat-label">Студент</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Оқытушыны іздеу (аты, пәні)..." oninput="filterTeachers()">
+                </div>
+                <div class="filter-group">
+                    <select id="subject-filter" onchange="filterTeachers()">
+                        <option value="">Барлық пәндер</option>
+                        <option value="Математика">Математика</option>
+                        <option value="Физика">Физика</option>
+                        <option value="Информатика">Информатика</option>
+                        <option value="Ағылшын тілі">Ағылшын тілі</option>
+                        <option value="Қазақ тілі">Қазақ тілі</option>
+                        <option value="Тарих">Тарих</option>
+                        <option value="Химия">Химия</option>
+                        <option value="Биология">Биология</option>
+                        <option value="Экономика">Экономика</option>
+                    </select>
+                    <select id="sort-filter" onchange="filterTeachers()">
+                        <option value="rating-desc">Рейтинг (жоғарыдан)</option>
+                        <option value="rating-asc">Рейтинг (төменнен)</option>
+                        <option value="name-asc">Аты (А-Я)</option>
+                        <option value="name-desc">Аты (Я-А)</option>
+                        <option value="reviews">Пікірлер саны</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="teachers-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chalkboard-teacher"></i> Оқытушылар тізімі</h2>
+                <span id="results-count">0 нәтиже</span>
+            </div>
+            <div class="teachers-grid" id="teachers-grid"></div>
+        </section>
+    </main>
+
+    <div class="modal" id="teacher-modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="teacher-detail" id="teacher-detail"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="rating-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeRatingModal()"><i class="fas fa-times"></i></button>
+            <h3>Баға беру</h3>
+            <div class="rating-form">
+                <div class="star-rating-input">
+                    <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+                    <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+                    <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+                    <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+                    <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+                </div>
+                <textarea id="review-text" placeholder="Пікіріңізді жазыңыз..." rows="4"></textarea>
+                <button onclick="submitReview()" class="btn btn-primary btn-full">Жіберу</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 College Teacher Rating System. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

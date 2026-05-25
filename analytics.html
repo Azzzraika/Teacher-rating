@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналитика - College Teacher Rating</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>TeacherRating</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Басты бет</a>
+            <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+            <a href="analytics.html" class="active"><i class="fas fa-chart-bar"></i> Аналитика</a>
+            <a href="admin.html" id="admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+        </div>
+        <div class="nav-auth">
+            <div id="user-info" style="display:none;">
+                <img id="user-avatar" src="" alt="avatar">
+                <span id="user-name"></span>
+                <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div id="auth-buttons">
+                <a href="login.html" class="btn btn-outline">Кіру</a>
+                <a href="register.html" class="btn btn-primary">Тіркелу</a>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html"><i class="fas fa-home"></i> Басты бет</a>
+        <a href="favorites.html"><i class="fas fa-heart"></i> Таңдаулылар</a>
+        <a href="analytics.html" class="active"><i class="fas fa-chart-bar"></i> Аналитика</a>
+        <a href="admin.html" id="mobile-admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+    </div>
+
+    <main class="main-content">
+        <section class="analytics-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> Аналитика</h2>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3><i class="fas fa-star"></i> Үздік оқытушылар (ТОП-5)</h3>
+                    <div class="chart-container">
+                        <canvas id="topTeachersChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-book"></i> Пәндер бойынша рейтинг</h3>
+                    <div class="chart-container">
+                        <canvas id="subjectsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-comments"></i> Пікірлер динамикасы</h3>
+                    <div class="chart-container">
+                        <canvas id="reviewsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-trophy"></i> Жалпы статистика</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span class="stat-value" id="stat-teachers">0</span>
+                            <span class="stat-label">Оқытушы</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-comment"></i>
+                            <span class="stat-value" id="stat-reviews">0</span>
+                            <span class="stat-label">Пікір</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-value" id="stat-users">0</span>
+                            <span class="stat-label">Пайдаланушы</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-star"></i>
+                            <span class="stat-value" id="stat-avg">0.0</span>
+                            <span class="stat-label">Орташа рейтинг</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 College Teacher Rating System. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="app.js"></script>
+    <script src="analytics.js"></script>
+</body>
+</html>
