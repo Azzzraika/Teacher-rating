@@ -1,24 +1,43 @@
 // ============================================
 // AUTHENTICATION LOGIC
 // ============================================
-
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    if (toast && toastMessage) {
+        toastMessage.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    } else {
+        alert(message);
+    }
+}
 async function handleLogin(e) {
     e.preventDefault();
-    const email = document.getElementById('login-email').value;
+    
+    const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-    });
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
 
-    if (error) {
-        showToast('Қате: ' + error.message);
-        return;
+        if (error) {
+            showToast('Қате: ' + error.message);
+            return;
+        }
+
+        showToast('Қош келдіңіз!');
+        
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
+
+    } catch (err) {
+        showToast('Жүйелік қате: ' + err.message);
     }
-
-    showToast('Қош келдіңіз!');
-    setTimeout(() => window.location.href = 'index.html', 1000);
 }
 
 async function handleRegister(e) {
