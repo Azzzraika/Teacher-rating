@@ -1524,3 +1524,73 @@ img {
         grid-template-columns: 1fr;
     }
 }
+/* Extra small screens (320px - 375px) */
+@media (max-width: 360px) {
+    .navbar {
+        height: 60px;
+    }
+    .nav-brand {
+        font-size: 1rem;
+    }
+    .nav-brand i {
+        font-size: 1.25rem;
+    }
+    .hero {
+        padding: 1.25rem 0.75rem;
+    }
+    .hero h1 {
+        font-size: 1.125rem;
+    }
+    .hero p {
+        font-size: 0.8125rem;
+    }
+    .stat-number {
+        font-size: 1.25rem;
+    }
+    .search-box input::placeholder {
+        font-size: 0.75rem;
+    }
+    .teacher-card-header {
+        height: 90px;
+    }
+    .teacher-avatar {
+        width: 56px;
+        height: 56px;
+        bottom: -28px;
+        border-width: 3px;
+    }
+    .teacher-card-body {
+        padding: 2rem 0.75rem 0.75rem;
+    }
+    .teacher-name {
+        font-size: 0.9375rem;
+    }
+    .teacher-subject {
+        font-size: 0.6875rem;
+    }
+    .teacher-stats {
+        gap: 1rem;
+    }
+    .stats-grid {
+        gap: 0.75rem;
+    }
+    .stat-value {
+        font-size: 1.25rem;
+    }
+    .chart-container {
+        height: 200px;
+    }
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+    .table-actions {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    .table-actions .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.6875rem;
+    }
+}
