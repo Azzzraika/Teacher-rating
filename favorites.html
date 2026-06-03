@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<base target="_blank">
 </head>
 <body>
     <nav class="navbar">
@@ -41,6 +42,20 @@
         <a href="favorites.html" class="active"><i class="fas fa-heart"></i> Таңдаулылар</a>
         <a href="analytics.html"><i class="fas fa-chart-bar"></i> Аналитика</a>
         <a href="admin.html" id="mobile-admin-link" style="display:none;"><i class="fas fa-cog"></i> Админ</a>
+    
+
+    <!-- Mobile Auth Section -->
+    <div class="mobile-auth" id="mobile-auth">
+        <div class="mobile-user-info" id="mobile-user-info" style="display:none;">
+            <img id="mobile-user-avatar" src="" alt="avatar">
+            <span id="mobile-user-name"></span>
+            <button onclick="logout()" class="btn-logout" title="Шығу"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+        <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+            <a href="login.html" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Кіру</a>
+            <a href="register.html" class="btn-primary"><i class="fas fa-user-plus"></i> Тіркелу</a>
+        </div>
+    </div>
     </div>
 
     <main class="main-content">
