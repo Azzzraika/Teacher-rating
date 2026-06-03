@@ -42,7 +42,13 @@ function updateUI() {
     const authButtons = document.getElementById('auth-buttons');
     const adminLink = document.getElementById('admin-link');
     const mobileAdminLink = document.getElementById('mobile-admin-link');
-
+    
+    // Mobile auth elements
+    const mobileUserInfo = document.getElementById('mobile-user-info');
+    const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+    const mobileUserName = document.getElementById('mobile-user-name');
+    const mobileUserAvatar = document.getElementById('mobile-user-avatar');
+    
     if (currentUser) {
         userInfo.style.display = 'flex';
         authButtons.style.display = 'none';
@@ -51,7 +57,14 @@ function updateUI() {
         document.getElementById('user-avatar').src = 
             currentUser.user_metadata?.avatar_url || 
             'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.email) + '&background=4f46e5&color=fff';
-
+        
+        // Update mobile UI
+        if (mobileUserInfo) mobileUserInfo.style.display = 'flex';
+        if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+        if (mobileUserName) mobileUserName.textContent = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+        if (mobileUserAvatar) mobileUserAvatar.src = currentUser.user_metadata?.avatar_url || 
+            'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.email) + '&background=4f46e5&color=fff';
+        
         if (isAdmin(currentUser)) {
             if (adminLink) adminLink.style.display = 'flex';
             if (mobileAdminLink) mobileAdminLink.style.display = 'flex';
@@ -61,6 +74,10 @@ function updateUI() {
         authButtons.style.display = 'flex';
         if (adminLink) adminLink.style.display = 'none';
         if (mobileAdminLink) mobileAdminLink.style.display = 'none';
+        
+        // Update mobile UI
+        if (mobileUserInfo) mobileUserInfo.style.display = 'none';
+        if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
     }
 }
 
