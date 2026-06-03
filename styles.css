@@ -215,7 +215,77 @@ img {
 .mobile-menu.show {
     display: flex;
 }
+/* Mobile Auth Section in Hamburger Menu */
+.mobile-auth {
+    display: none;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+}
 
+.mobile-auth .mobile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+}
+
+.mobile-auth .mobile-user-info img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mobile-auth .mobile-user-info span {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    flex: 1;
+}
+
+.mobile-auth .mobile-user-info .btn-logout {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--danger);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+}
+
+.mobile-auth .mobile-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-auth .mobile-auth-buttons a {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.mobile-auth .mobile-auth-buttons a.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.mobile-auth .mobile-auth-buttons a.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+}
 /* ============================================
    BUTTONS
    ============================================ */
@@ -1478,6 +1548,10 @@ img {
     .auth-card {
         max-width: 100%;
         padding: 2rem 1.5rem;
+    }
+    .mobile-auth {
+        display: flex;
+        flex-direction: column;
     }
 
     .modal-content {
